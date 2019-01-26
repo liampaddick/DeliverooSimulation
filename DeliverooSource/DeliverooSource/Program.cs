@@ -181,40 +181,11 @@ namespace DeliverooSource
 
         static void GetAvailableRiders(List<Rider> riderList)
         {
-            List<Rider> availableRiders = new List<Rider> { };
-
-            for (int i = 0; i < riderList.Count(); i++)
-            {
-                if (riderList[i].GetOnline() == true)
-                {
-
-                }
-            }
         }
         static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY)
         {
-            Rider closestRider = new Rider { };
-            float tempRiderX;
-            float tempRiderY;
-            float shortestDistance = 0.0f;
-            float currentDistance;
-
-            for (int i = 0; i < availableRiders.Count(); i++)
-            {
-                tempRiderX = availableRiders[i].GetXCo();
-                tempRiderY = availableRiders[i].GetYCo();
-
-                currentDistance = ((tempRiderX - restaurantX) * (tempRiderX - restaurantX)) + ((tempRiderY - restaurantY) * (tempRiderY - restaurantY));
-
-                if (currentDistance < shortestDistance)
-                {
-                    shortestDistance = currentDistance;
-                    closestRider = availableRiders[i];
-                    currentDistance = 0.0f;
-                }
-            }
-
-            return closestRider;
+            Rider tempRider = new Rider { };
+            return tempRider;
         }
         static Order CreateOrder(Restaurant restaurantOrderedFrom, Customer orderingCustomer)
         {
