@@ -206,17 +206,43 @@ namespace DeliverooSource
 
             return (float)distance;
 
-        } 
-
-        static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY)
-        {
-            Rider tempRider = new Rider { };
-            return tempRider;
         }
-        static Order CreateOrder(Restaurant restaurantOrderedFrom, Customer orderingCustomer)
+        static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY, float customerX, float customerY)
         {
-            Order tempOrder = new Order { };
-            return tempOrder;
+            Rider shortestRider = new Rider { };
+            List<Rider> tempRiderList = availableRiders;
+            float tempDistanceToRestaurant = 0.0f;
+            float tempDistanceToCustomer = 0.0f;
+            float tempOverallDistance = 0.0f;
+            float shortestOverallDistance = 0.0f;
+
+            //find distance to customer once before the loop as this will stay the same and doesn not need to be calculated everytime
+            tempDistanceToCustomer = FindDistance(restaurantX, restaurantY, customerX, customerY);
+
+            for (int i = 0; i < tempRiderList.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    tempDistanceToRestaurant = FindDistance(tempRiderList[i].GetXCo(), tempRiderList[i].GetYCo(), restaurantX, restaurantY);
+                    tempOverallDistance = tempDistanceToRestaurant + tempDistanceToCustomer;
+                    shortestOverallDistance = tempOverallDistance;
+                    shortestRider = tempRiderList[i];
+                }
+                else
+                {
+
+                    //find distance from rider to the restaurant
+                    tempDistanceToRestaurant = FindDistance(tempRiderList[i].GetXCo(), tempRiderList[i].GetYCo(), restaurantX, restaurantY);
+                    tempOverallDistance = tempDistanceToRestaurant + tempDistanceToCustomer;
+
+                    if (tempOverallDistance < shortestOverallDistance)
+                    {
+                        shortestOverallDistance = tempOverallDistance;
+                        shortestRider = tempRiderList[i];
+                    }
+                }
+            }
+            return shortestRider;
         }
 
     }
