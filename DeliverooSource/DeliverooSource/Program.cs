@@ -179,9 +179,24 @@ namespace DeliverooSource
 
         }
 
-        static void GetAvailableRiders(List<Rider> riderList)
+        static List<Rider> GetAvailableRiders(List<Rider> riderList)
         {
+            List<Rider> tempRiderList = new List<Rider> { };
+            List<Rider> availableRiderList = new List<Rider> { };
+            for (int i = 0; i < tempRiderList.Count(); i++)
+            {
+                if (tempRiderList[i].GetOnline() == true)
+                {
+                    if (tempRiderList[i].GetCurrentlyDelivering() == false)
+                    {
+                        availableRiderList.Add(tempRiderList[i]);
+                    }
+                }
+            }
+
+            return availableRiderList;
         }
+
         static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY)
         {
             Rider tempRider = new Rider { };
@@ -192,6 +207,7 @@ namespace DeliverooSource
             Order tempOrder = new Order { };
             return tempOrder;
         }
+
     }
     class Order
     {
