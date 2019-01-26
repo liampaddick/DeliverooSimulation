@@ -40,6 +40,37 @@ namespace DeliverooSource
             Console.WriteLine("This will simulate a deliveroo order system");
             while (serverActive == true)
             {
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //PLACE THIS INSIDE FUNCTION
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                for (int i = 0; i < orderList.Count(); i++)
+                {
+                    if (orderList[i].GetRiderAssigned() == false)
+                    {
+                        Restaurant tempRestaurant = new Restaurant { };
+                        for (int j = 0; j < restaurantList.Count(); j++)
+                        {
+                            if (orderList[i].GetRestaurantID() == restaurantList[j].GetID())
+                            {
+                                tempRestaurant = restaurantList[j];
+                            }
+                        }
+                        Customer tempCustomer = new Customer { };
+                        for (int j = 0; j < customerList.Count(); j++)
+                        {
+                            if (orderList[i].GetCustomerID() == customerList[j].GetId())
+                            {
+                                tempCustomer = customerList[j];
+                            }
+                        }
+                        Rider tempRiderToAssign;
+                        tempRiderToAssign = FindClosestRider(riderList, tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
+                        orderList[i].SetRiderID(tempRiderToAssign.GetId());
+                        orderList[i].SetRiderAssigned(true); 
+                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    }
+                }
             }
         }
         //These functions are used to test the initilisation of the various classes. They have been filled with placeholders for now
