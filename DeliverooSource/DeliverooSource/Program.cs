@@ -12,7 +12,7 @@ namespace DeliverooSource
         //entry point function
         static void Main(string[] args)
         {
-            bool serverActive = true;
+            bool serverActive = false;
 
             //list of restaurants
             List<Restaurant> restaurantList = new List<Restaurant>();
@@ -174,6 +174,7 @@ namespace DeliverooSource
             }
         }
 
+
         static void ServerShutdown() //Copy all data to text file so that it can be loaded once the server has been restarted
         {
 
@@ -196,6 +197,16 @@ namespace DeliverooSource
 
             return availableRiderList;
         }
+
+        static float FindDistance(float x1, float y1, float x2, float y2) //this can be used for finding the distance between a rider and the restaurant as well as the distance from the resaurant to the customer
+        {
+            double distance = 0.0f;
+
+            distance = Math.Sqrt(((x1 - x2) * (x1 - x2)) + ((y1 - y2) * (y1 - y2)));
+
+            return (float)distance;
+
+        } 
 
         static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY)
         {
