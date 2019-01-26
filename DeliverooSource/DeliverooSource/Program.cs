@@ -23,43 +23,27 @@ namespace DeliverooSource
             //list of riders
             List<Rider> riderList = new List<Rider>();
 
-            //Add all known restaurants to restaurant list
-            customerList = TestCustomer();
+            //add restaurant to list
+            restaurantList.Add(CreateRestaurant(0, "Restaurant1", "R3ST 0N3", 4, 2, true));
+            //add riders to list
+            riderList.Add(CreateRider(0, "Jim Jiminson", 2, 2, true, false));
+            riderList.Add(CreateRider(1, "Dave Davidson", 14, 2, true, false));
+            //add customers to list
+            customerList.Add(CreateCustomer(0, "Steve Stevinson", "CU5T 0M1", 4, 6));
+            customerList.Add(CreateCustomer(1, "Nate Nateinson", "CU5T 0M2", 10, 2));
 
-            //Add all known riders to restaurant list
-            riderList = TestRider();
+            orderList.Add(CreateOrder(0, restaurantList[0].GetID(), customerList[0].GetId(), false));
+            orderList.Add(CreateOrder(1, restaurantList[0].GetID(), customerList[1].GetId(), false));
 
-            //add all known customers to customer list
-            customerList = TestCustomer();
+            InitServer();
 
             Console.WriteLine("This will simulate a deliveroo order system");
             while (serverActive == true)
             {
-
             }
-
-            //Restaurant init test
-            //restaurantList = TestRestaurant();
-            //OutputRestaurantList(restaurantList);
-            //End of test
-
-            //customer init test
-            //customerList = TestCustomer();
-            //OutputCustomerList(customerList);
-            //end of test
-
-            //order init test
-            //orderList = TestOrder();
-            //OutputOrderList(orderList);
-            //end of test
-
-            //rider init test
-            //riderList = TestRider();
-            //OutputRiderList(riderList);
-            //end of test
         }
         //These functions are used to test the initilisation of the various classes. They have been filled with placeholders for now
-        static List<Restaurant> TestRestaurant()
+        /*static List<Restaurant> TestRestaurant()
         {
             List<Restaurant> restaurantList = new List<Restaurant> { };
             for (int i = 0; i < 5; i++)
@@ -135,8 +119,9 @@ namespace DeliverooSource
             for (int i = 0; i < orderList.Count(); i++)
             {
                 Console.WriteLine("Order number: " + orderList[i].GetOrderID());
-                Console.WriteLine("Rider ID: " + orderList[i].GetRiderId());
-                Console.WriteLine("Restaurant ID: " + orderList[i].GetRestaurantId());
+                Console.WriteLine("Rider ID: " + orderList[i].GetRiderID());
+                Console.WriteLine("Restaurant ID: " + orderList[i].GetRestaurantID());
+                Console.WriteLine("Customer ID: " + orderList[i].GetCustomerID());
                 Console.WriteLine("Restaurant accepted: " + orderList[i].GetRestaurantAccepted());
                 Console.WriteLine("Rider assigned: " + orderList[i].GetRiderAssigned());
                 Console.WriteLine("Food collected: " + orderList[i].GetFoodCollected());
@@ -172,12 +157,15 @@ namespace DeliverooSource
                 Console.WriteLine("Rider is Active: " + riderList[i].GetOnline());
                 Console.WriteLine(" ");
             }
-        }
+        }*/
 
-
-        static void ServerShutdown() //Copy all data to text file so that it can be loaded once the server has been restarted
+        static bool InitServer() // placeholder for now, finished form will draw from text file
         {
-
+            return true;
+        }
+        static bool ServerShutdown() //Copy all data to text file so that it can be loaded once the server has been restarted
+        {
+            return false;
         }
 
         static List<Rider> GetAvailableRiders(List<Rider> riderList)
@@ -245,6 +233,50 @@ namespace DeliverooSource
             return shortestRider;
         }
 
+        static Order CreateOrder(int id, int restaurantID, int customerID, bool initBools)
+        {
+            Order tempOrder = new Order { };
+            tempOrder.SetOrderID(id);
+            tempOrder.SetRestaurantID(restaurantID);
+            tempOrder.SetCustomerID(customerID);
+            tempOrder.SetRestaurantAccepted(initBools);
+            tempOrder.SetRiderAssigned(initBools);
+            tempOrder.SetFoodCollected(initBools);
+            tempOrder.SetFoodDelivered(initBools);
+            return tempOrder;
+        }
+        static Restaurant CreateRestaurant(int id, string restaurantName, string restaurantAddress, float xCo, float yCo, bool open)
+        {
+            Restaurant tempRestaurant = new Restaurant { };
+            tempRestaurant.SetID(id);
+            tempRestaurant.SetRestaurantName(restaurantName);
+            tempRestaurant.SetRestaurantAddress(restaurantAddress);
+            tempRestaurant.SetXCo(xCo);
+            tempRestaurant.SetYCo(yCo);
+            tempRestaurant.SetOpen(open);
+            return tempRestaurant;
+        }
+        static Rider CreateRider(int id, string riderName, float xCo, float yCo, bool online, bool isDelivering)
+        {
+            Rider tempRider = new Rider { };
+            tempRider.SetId(id);
+            tempRider.SetName(riderName);
+            tempRider.SetXCo(xCo);
+            tempRider.SetYCo(yCo);
+            tempRider.SetOnline(online);
+            tempRider.SetCurrentlyDelivering(isDelivering);
+            return tempRider;
+        }
+        static Customer CreateCustomer(int id, string name, string address, float xCo, float yCo)
+        {
+            Customer tempCustomer = new Customer { };
+            tempCustomer.SetId(id);
+            tempCustomer.SetName(name);
+            tempCustomer.SetAddress(address);
+            tempCustomer.SetXCo(xCo);
+            tempCustomer.SetYCo(yCo);
+            return tempCustomer;
+        } 
     }
     class Order
     {
@@ -268,22 +300,31 @@ namespace DeliverooSource
             return localOrderID;
         }
 
-        public void SetRestaurantId(int restaurantId)
+        public void SetRestaurantID(int restaurantID)
         {
-            localRestaurantID = restaurantId;
+            localRestaurantID = restaurantID;
         }
-        public int GetRestaurantId()
+        public int GetRestaurantID()
         {
             return localRestaurantID;
         }
 
-        public void SetRiderId(int riderId)
+        public void SetRiderID(int riderID)
         {
-            localRiderID = riderId;
+            localRiderID = riderID;
         }
-        public int GetRiderId()
+        public int GetRiderID()
         {
             return localRiderID;
+        }
+
+        public void SetCustomerID(int customerID)
+        {
+            localCustomerID = customerID;
+        }
+        public int GetCustomerID()
+        {
+            return localCustomerID;
         }
 
         public void SetRestaurantAccepted(bool accepted)
@@ -320,18 +361,6 @@ namespace DeliverooSource
         public bool GetFoodDelivered()
         {
             return localFoodDelivered;
-        }
-
-        public void InitOrder(int orderNumber, int riderID, int RestaurantID, bool RestaurantAccepted, bool riderAssigned, bool foodCollected, bool foodDelivered)
-        {
-            localOrderID = orderNumber;
-            localRiderID = riderID;
-            localRestaurantID = RestaurantID;
-
-            localRestaurantAccepted = RestaurantAccepted;
-            localRiderAssigned = riderAssigned;
-            localFoodCollected = foodCollected;
-            localFoodDelivered = foodDelivered;
         }
     }
     class Restaurant
@@ -396,16 +425,6 @@ namespace DeliverooSource
         {
             return localOpen;
         }
-
-        public void InitRestaurant(int id, string name, float xCo, float yCo, bool open)
-        {
-            localId = id;
-            localRestaurantName = name;
-            localXCo = xCo;
-            localYCo = yCo;
-            localOpen = open;
-        }
-
     }
     class Rider
     {
@@ -479,21 +498,11 @@ namespace DeliverooSource
         {
             return localIsDelivering;
         }
-
-        public void InitRider(int id, string riderName, float xCo, float yCo, bool online)
-        {
-            SetId(id);
-            SetName(riderName);
-            SetXCo(xCo);
-            SetYCo(yCo);
-            SetOnline(online);
-        }
     }
     class Customer
     {
         int localId;
-        string localFirstName;
-        string localLastName;
+        string localName;
         string localAddress;
         float localXCo;
         float localYCo;
@@ -508,22 +517,13 @@ namespace DeliverooSource
             return localId;
         }
 
-        public void SetFirstName(string firstName)
+        public void SetName(string name)
         {
-            localFirstName = firstName;
+            localName = name;
         }
-        public string GetFirstName()
+        public string GetName()
         {
-            return localFirstName;
-        }
-
-        public void SetLastName(string lastName)
-        {
-            localLastName = lastName;
-        }
-        public string GetLastName()
-        {
-            return localLastName;
+            return localName;
         }
 
         public void SetAddress(string address)
@@ -560,15 +560,6 @@ namespace DeliverooSource
         public int SetOrderID()
         {
             return localOrderID;
-        }
-
-        public void InitCustomer(int id, string firstName, string lastName, float xCo, float yCo)
-        {
-            SetId(id);
-            SetFirstName(firstName);
-            SetLastName(lastName);
-            SetXCo(xCo);
-            SetYCo(yCo);
         }
     }
 }
