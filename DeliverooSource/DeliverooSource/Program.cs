@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace DeliverooSource
 {
-    //testing that the branch worked properly.
     //main class
     class Program
     {
@@ -24,10 +23,10 @@ namespace DeliverooSource
             //list of riders
             List<Rider> riderList = new List<Rider>();
 
-            //Add all known restaraunts to restaraunt list
+            //Add all known restaurants to restaurant list
             customerList = TestCustomer();
 
-            //Add all known riders to restaraunt list
+            //Add all known riders to restaurant list
             riderList = TestRider();
 
             //add all known customers to customer list
@@ -135,7 +134,7 @@ namespace DeliverooSource
 
             for (int i = 0; i < orderList.Count(); i++)
             {
-                Console.WriteLine("Order number: " + orderList[i].GetOrderNumber());
+                Console.WriteLine("Order number: " + orderList[i].GetOrderID());
                 Console.WriteLine("Rider ID: " + orderList[i].GetRiderId());
                 Console.WriteLine("Restaurant ID: " + orderList[i].GetRestaurantId());
                 Console.WriteLine("Restaurant accepted: " + orderList[i].GetRestaurantAccepted());
@@ -217,7 +216,7 @@ namespace DeliverooSource
 
             return closestRider;
         }
-        static Order CreateOrder(Restaurant restarauntOrderedFrom, Customer orderingCustomer)
+        static Order CreateOrder(Restaurant restaurantOrderedFrom, Customer orderingCustomer)
         {
             Order tempOrder = new Order { };
             return tempOrder;
@@ -225,9 +224,10 @@ namespace DeliverooSource
     }
     class Order
     {
-        int localOrderNumber;
-        int localRiderID;
+        int localOrderID;
         int localRestaurantID;
+        int localRiderID;
+        int localCustomerID;
 
         bool localRestaurantAccepted;
         bool localRiderAssigned;
@@ -235,13 +235,22 @@ namespace DeliverooSource
         bool localFoodDelivered;
 
 
-        public void SetOrderNumber(int amountOfOrders)
+        public void SetOrderID(int amountOfOrders)
         {
-            localOrderNumber = amountOfOrders + 1;
+            localOrderID = amountOfOrders + 1;
         }
-        public int GetOrderNumber()
+        public int GetOrderID()
         {
-            return localOrderNumber;
+            return localOrderID;
+        }
+
+        public void SetRestaurantId(int restaurantId)
+        {
+            localRestaurantID = restaurantId;
+        }
+        public int GetRestaurantId()
+        {
+            return localRestaurantID;
         }
 
         public void SetRiderId(int riderId)
@@ -251,15 +260,6 @@ namespace DeliverooSource
         public int GetRiderId()
         {
             return localRiderID;
-        }
-
-        public void SetRestaurantId(int RestaurantId)
-        {
-            localRestaurantID = RestaurantId;
-        }
-        public int GetRestaurantId()
-        {
-            return localRestaurantID;
         }
 
         public void SetRestaurantAccepted(bool accepted)
@@ -298,10 +298,9 @@ namespace DeliverooSource
             return localFoodDelivered;
         }
 
-
         public void InitOrder(int orderNumber, int riderID, int RestaurantID, bool RestaurantAccepted, bool riderAssigned, bool foodCollected, bool foodDelivered)
         {
-            localOrderNumber = orderNumber;
+            localOrderID = orderNumber;
             localRiderID = riderID;
             localRestaurantID = RestaurantID;
 
@@ -315,6 +314,7 @@ namespace DeliverooSource
     {
         int localId;
         string localRestaurantName;
+        string localRestaurantAddress;
         float localXCo;
         float localYCo;
         bool localOpen;
@@ -335,6 +335,15 @@ namespace DeliverooSource
         public string GetRestaurantName()
         {
             return localRestaurantName;
+        }
+
+        public void SetRestaurantAddress(string RestaurantAddress)
+        {
+            localRestaurantAddress = RestaurantAddress;
+        }
+        public string GetRestaurantAddress()
+        {
+            return localRestaurantAddress;
         }
 
         public void SetXCo(float xCo)
@@ -381,6 +390,8 @@ namespace DeliverooSource
         float localXCo;
         float localYCo;
         bool localOnline;
+        bool localIsDelivering;
+        int localAssignedOrder;
 
         public void SetId(int id)
         {
@@ -427,6 +438,24 @@ namespace DeliverooSource
             return localOnline;
         }
 
+        public void SetAssignedOrder(int orderID)
+        {
+            localAssignedOrder = orderID;
+        }
+        public int GetAssignedOrder()
+        {
+            return localAssignedOrder;
+        }
+
+        public void SetCurrentlyDelivering(bool delivering)
+        {
+            localIsDelivering = delivering;
+        }
+        public bool GetCurrentlyDelivering()
+        {
+            return localIsDelivering;
+        }
+
         public void InitRider(int id, string riderName, float xCo, float yCo, bool online)
         {
             SetId(id);
@@ -438,19 +467,21 @@ namespace DeliverooSource
     }
     class Customer
     {
-        int LocalId;
+        int localId;
         string localFirstName;
         string localLastName;
+        string localAddress;
         float localXCo;
         float localYCo;
+        int localOrderID;
 
         public void SetId(int id)
         {
-            LocalId = id;
+            localId = id;
         }
         public int GetId()
         {
-            return LocalId;
+            return localId;
         }
 
         public void SetFirstName(string firstName)
@@ -471,6 +502,15 @@ namespace DeliverooSource
             return localLastName;
         }
 
+        public void SetAddress(string address)
+        {
+            localAddress = address;
+        }
+        public string GetAddress()
+        {
+            return localAddress;
+        }
+
         public void SetXCo(float xCo)
         {
             localXCo = xCo;
@@ -487,6 +527,15 @@ namespace DeliverooSource
         public float GetYCo()
         {
             return localYCo;
+        }
+
+        public void SetOrderID(int orderID)
+        {
+            localOrderID = orderID;
+        }
+        public int SetOrderID()
+        {
+            return localOrderID;
         }
 
         public void InitCustomer(int id, string firstName, string lastName, float xCo, float yCo)
