@@ -214,6 +214,55 @@ namespace DeliverooSource
             return shortestRider;
         }
 
+        static float FindVectorXDistance(float riderX, float destinationX)
+        {
+            //find difference between rider and destination on the X vectors
+
+            float tempXDistance = riderX - destinationX;
+            return tempXDistance;
+        }
+        static float FindVectorYDistance(float riderY, float destinationY)
+        {
+            //find difference between rider and destination on the Y vectors
+
+            float tempYDistance = riderY - destinationY;
+            return tempYDistance;
+        }
+
+        static Rider UpdateRiderDistance(Rider riderToUpdate, float destinationX, float destinationY, float xDistance, float yDistance)
+        {
+            Rider tempRider = riderToUpdate;
+            float riderX = tempRider.GetXCo();
+            float riderY = tempRider.GetYCo();
+
+            if (riderX > destinationX)
+            {
+                // sub distance
+                float distance = riderX - xDistance;
+                tempRider.SetXCo(distance);
+            }
+            else
+            {
+                // add distance
+                float distance = riderX + xDistance;
+                tempRider.SetXCo(distance);
+            }
+
+            if (riderY > destinationY)
+            {
+                // sub distance
+                float distance = riderY - yDistance;
+                tempRider.SetYCo(distance);
+            }
+            else
+            {
+                // add distance
+                float distance = riderY + yDistance;
+                tempRider.SetYCo(distance);
+            }
+            return tempRider;
+        }
+
         static Order CreateOrder(int id, int restaurantID, int customerID, bool initBools)
         {
             Order tempOrder = new Order { };
@@ -413,6 +462,7 @@ namespace DeliverooSource
         string localRiderName;
         float localXCo;
         float localYCo;
+        float distanceFromDestination;
         bool localOnline;
         bool localIsDelivering;
         int localAssignedOrder;
