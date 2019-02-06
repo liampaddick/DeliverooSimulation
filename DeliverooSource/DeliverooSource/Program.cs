@@ -22,56 +22,6 @@ namespace DeliverooSource
             List<Order> orderList = new List<Order>();
             //list of riders
             List<Rider> riderList = new List<Rider>();
-
-            //add restaurant to list
-            restaurantList.Add(CreateRestaurant(0, "Restaurant1", "R3ST 0N3", 4, 2, true));
-            //add riders to list
-            riderList.Add(CreateRider(0, "Jim Jiminson", 2, 2, true, false));
-            riderList.Add(CreateRider(1, "Dave Davidson", 14, 2, true, false));
-            //add customers to list
-            customerList.Add(CreateCustomer(0, "Steve Stevinson", "CU5T 0M1", 4, 6));
-            customerList.Add(CreateCustomer(1, "Nate Nateinson", "CU5T 0M2", 10, 2));
-
-            orderList.Add(CreateOrder(0, restaurantList[0].GetID(), customerList[0].GetId(), false));
-            orderList.Add(CreateOrder(1, restaurantList[0].GetID(), customerList[1].GetId(), false));
-
-            InitServer();
-
-            Console.WriteLine("This will simulate a deliveroo order system");
-            while (serverActive == true)
-            {
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                //PLACE THIS INSIDE FUNCTION
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-                for (int i = 0; i < orderList.Count(); i++)
-                {
-                    if (orderList[i].GetRiderAssigned() == false)
-                    {
-                        Restaurant tempRestaurant = new Restaurant { };
-                        for (int j = 0; j < restaurantList.Count(); j++)
-                        {
-                            if (orderList[i].GetRestaurantID() == restaurantList[j].GetID())
-                            {
-                                tempRestaurant = restaurantList[j];
-                            }
-                        }
-                        Customer tempCustomer = new Customer { };
-                        for (int j = 0; j < customerList.Count(); j++)
-                        {
-                            if (orderList[i].GetCustomerID() == customerList[j].GetId())
-                            {
-                                tempCustomer = customerList[j];
-                            }
-                        }
-                        Rider tempRiderToAssign;
-                        tempRiderToAssign = FindClosestRider(riderList, tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
-                        orderList[i].SetRiderID(tempRiderToAssign.GetId());
-                        orderList[i].SetRiderAssigned(true); 
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    }
-                }
-            }
         }
         //These functions are used to test the initilisation of the various classes. They have been filled with placeholders for now
         /*static List<Restaurant> TestRestaurant()
