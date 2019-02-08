@@ -320,6 +320,9 @@ namespace DeliverooSource
         bool localFoodCollected;
         bool localFoodDelivered;
 
+        //this will be incremented every time an Order object is made the constructor will add to this number and the ID of the Order object will be set accordingly. 
+        public static int orderCount;
+
         public Order()
         {
             //constructor to initialise the order
@@ -406,6 +409,9 @@ namespace DeliverooSource
         float localYCo;
         bool localOpen;
 
+        //this will be incremented every time a Restaurant object is made the constructor will add to this number and the ID of the restaurant object will be set accordingly. 
+        public static int restaurantCount;
+
         public Restaurant()
         {
             //constructor for the restaurant
@@ -475,6 +481,9 @@ namespace DeliverooSource
         bool localOnline;
         bool localIsDelivering;
         int localAssignedOrder;
+
+        //this will be incremented every time a rider object is made the constructor will add to this number and the ID of the Rider object will be set accordingly. 
+        public static int riderCount;
 
         public Rider()
         {
@@ -552,6 +561,9 @@ namespace DeliverooSource
         float localXCo;
         float localYCo;
         int localOrderID;
+
+        //this will be incremented every time a customer object is made the constructor will add to this number and the ID of the Customer object will be set accordingly. 
+        public static int customerCount;
 
         public Customer()
         {
