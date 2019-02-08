@@ -320,6 +320,10 @@ namespace DeliverooSource
         bool localFoodCollected;
         bool localFoodDelivered;
 
+        public Order()
+        {
+            //constructor to initialise the order
+        }
 
         public void SetOrderID(int amountOfOrders)
         {
@@ -402,6 +406,11 @@ namespace DeliverooSource
         float localYCo;
         bool localOpen;
 
+        public Restaurant()
+        {
+            //constructor for the restaurant
+        }
+
         public void SetID(int id)
         {
             localId = id;
@@ -466,6 +475,11 @@ namespace DeliverooSource
         bool localOnline;
         bool localIsDelivering;
         int localAssignedOrder;
+
+        public Rider()
+        {
+            //constructor for the rider
+        }
 
         public void SetId(int id)
         {
@@ -538,6 +552,11 @@ namespace DeliverooSource
         float localXCo;
         float localYCo;
         int localOrderID;
+
+        public Customer()
+        {
+            //constructor for the Customer
+        }
 
         public void SetId(int id)
         {
