@@ -22,6 +22,18 @@ namespace DeliverooSource
             List<Order> orderList = new List<Order>();
             //list of riders
             List<Rider> riderList = new List<Rider>();
+
+            Restaurant tempRestaurant = new Restaurant { };
+            Customer tempCustomer = new Customer { };
+            Order tempOrder = new Order { };
+            Rider tempRider = new Rider { };
+
+            Restaurant tempRestaurant1 = new Restaurant { };
+            Customer tempCustomer1 = new Customer { };
+            Order tempOrder1 = new Order { };
+            Rider tempRider1 = new Rider { };
+
+            restaurantList.Add(tempRestaurant);
         }
         //These functions are used to test the initilisation of the various classes. They have been filled with placeholders for now
         /*static List<Restaurant> TestRestaurant()
@@ -326,6 +338,10 @@ namespace DeliverooSource
         public Order()
         {
             //constructor to initialise the order
+            Console.WriteLine("constructing an order");
+            orderCount++;
+
+            Console.WriteLine("Count: " + orderCount);
         }
 
         public void SetOrderID(int amountOfOrders)
@@ -415,6 +431,10 @@ namespace DeliverooSource
         public Restaurant()
         {
             //constructor for the restaurant
+            Console.WriteLine("constructing a restaurant");
+            restaurantCount++;
+
+            Console.WriteLine("Count: " + restaurantCount);
         }
 
         public void SetID(int id)
@@ -488,6 +508,10 @@ namespace DeliverooSource
         public Rider()
         {
             //constructor for the rider
+            Console.WriteLine("constructing a rider");
+            riderCount++;
+
+            Console.WriteLine("Count: " + riderCount);
         }
 
         public void SetId(int id)
@@ -568,6 +592,10 @@ namespace DeliverooSource
         public Customer()
         {
             //constructor for the Customer
+            Console.WriteLine("constructing a customer");
+            customerCount++;
+
+            Console.WriteLine("Count: " + customerCount);
         }
 
         public void SetId(int id)
