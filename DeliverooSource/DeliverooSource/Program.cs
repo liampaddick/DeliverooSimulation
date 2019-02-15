@@ -72,6 +72,20 @@ namespace DeliverooSource
                 Console.WriteLine(" ");
             }
 
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+
+            orderList.Add(CreateOrder(0, 0));
+            orderList.Add(CreateOrder(1, 1));
+            Console.WriteLine("ORDERS: ");
+            for (int i = 0; i < orderList.Count; i++)
+            {
+                Console.WriteLine("Order ID: " + orderList[i].GetOrderID());
+                Console.WriteLine("Customer ID: " + orderList[i].GetCustomerID());
+                Console.WriteLine("Restaurant ID: " + orderList[i].GetRestaurantID());
+                Console.WriteLine(" ");
+            }
+
             Console.ReadLine();
 
             ////////
@@ -356,11 +370,6 @@ namespace DeliverooSource
             localOrderID = orderCount;
             localRestaurantID = restaurantID;
             localCustomerID = customerID;
-
-            localRestaurantAccepted = false;
-            localRiderAssigned = false;
-            localFoodCollected = false;
-            localFoodDelivered = false;
 
             orderCount++;
         }
