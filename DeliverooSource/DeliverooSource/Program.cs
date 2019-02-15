@@ -22,6 +22,59 @@ namespace DeliverooSource
             List<Order> orderList = new List<Order>();
             //list of riders
             List<Rider> riderList = new List<Rider>();
+
+            //TESTING 
+            ////////
+            restaurantList.Add(CreateRestaurant("Restaurant 1", "RE5 T1", 2, 2));
+            restaurantList.Add(CreateRestaurant("Restaurant 2", "RE5 T2", 2, 5));
+            Console.WriteLine("RESTAURANTS: ");
+            for (int i = 0; i < restaurantList.Count; i++)
+            {
+                Console.WriteLine("Restaurant ID: " + restaurantList[i].GetID());
+                Console.WriteLine("Restaurant Name: " + restaurantList[i].GetRestaurantName());
+                Console.WriteLine("Restaurant Address: " + restaurantList[i].GetRestaurantAddress());
+                Console.WriteLine("Restaurant xCo: " + restaurantList[i].GetXCo());
+                Console.WriteLine("Restaurant yCo: " + restaurantList[i].GetYCo());
+                Console.WriteLine("Restaurant Open: " + restaurantList[i].GetOpen());
+                Console.WriteLine(" ");
+            }
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+
+            customerList.Add(CreateCustomer("Customer 1", "CU5 T1", 3, 1));
+            customerList.Add(CreateCustomer("Customer 2", "CU5 T2", 3, 6));
+            Console.WriteLine("CUSTOMERS: ");
+            for (int i = 0; i < customerList.Count; i++)
+            {
+                Console.WriteLine("Customer ID: " + customerList[i].GetId());
+                Console.WriteLine("Customer Name: " + customerList[i].GetName());
+                Console.WriteLine("Customer Address: " + customerList[i].GetAddress());
+                Console.WriteLine("Customer xCo: " + customerList[i].GetXCo());
+                Console.WriteLine("Customer yCo: " + customerList[i].GetYCo());
+                Console.WriteLine(" ");
+            }
+
+
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+
+
+            riderList.Add(CreateRider("Rider 1", 6, 2));
+            riderList.Add(CreateRider("Rider 1", 6, 5));
+            Console.WriteLine("RIDERS: ");
+            for (int i = 0; i < riderList.Count; i++)
+            {
+                Console.WriteLine("Rider ID: " + riderList[i].GetId());
+                Console.WriteLine("Rider Name: " + riderList[i].GetName());
+                Console.WriteLine("Rider xCo: " + riderList[i].GetXCo());
+                Console.WriteLine("Rider yCo: " + riderList[i].GetYCo());
+                Console.WriteLine(" ");
+            }
+
+            Console.ReadLine();
+
+            ////////
         }
         //These functions are used to test the initilisation of the various classes. this code is no longer functional and needs to be removed
         /*static List<Restaurant> TestRestaurant()
@@ -213,7 +266,6 @@ namespace DeliverooSource
             }
             return shortestRider;
         }
-
         static float FindVectorXDistance(float riderX, float destinationX)
         {
             //find difference between rider and destination on the X vectors
@@ -228,7 +280,6 @@ namespace DeliverooSource
             float tempYDistance = riderY - destinationY;
             return tempYDistance;
         }
-
         static Rider UpdateRiderDistance(Rider riderToUpdate, float destinationX, float destinationY, float xDistance, float yDistance)
         {
             Rider tempRider = riderToUpdate;
@@ -302,7 +353,6 @@ namespace DeliverooSource
         public Order(int restaurantID, int customerID)
         {
             //constructor to initialise the order
-            Console.WriteLine("constructing an order");
             localOrderID = orderCount;
             localRestaurantID = restaurantID;
             localCustomerID = customerID;
@@ -313,8 +363,6 @@ namespace DeliverooSource
             localFoodDelivered = false;
 
             orderCount++;
-
-            Console.WriteLine("Count: " + orderCount);
         }
 
         public int GetOrderID()
@@ -400,7 +448,6 @@ namespace DeliverooSource
         public Restaurant(string restaurantName, string restaurantAddress, float xCo, float yCo)
         {
             //constructor for the restaurant
-            Console.WriteLine("constructing a restaurant");
             localRestaurantID = restaurantCount;
             localRestaurantName = restaurantName;
             localRestaurantAddress = restaurantAddress;
@@ -408,7 +455,6 @@ namespace DeliverooSource
             localYCo = yCo;            
             restaurantCount++;
 
-            Console.WriteLine("Count: " + restaurantCount);
         }
         public int GetID()
         {
@@ -456,14 +502,12 @@ namespace DeliverooSource
         public Rider(string riderName, float xCo, float yCo)
         {
             //constructor for the rider
-            Console.WriteLine("constructing a rider");
             localId = riderCount;
             localRiderName = riderName;
             localXCo = xCo;
             localYCo = yCo;
             riderCount++;
 
-            Console.WriteLine("Count: " + riderCount);
         }
 
         public int GetId()
@@ -536,7 +580,6 @@ namespace DeliverooSource
         public Customer(string customerName, string customerAddress, float xCo, float yCo)
         {
             //constructor for the Customer
-            Console.WriteLine("constructing a customer");
             localId = customerCount;
             localName = customerName;
             localAddress = customerAddress;
@@ -545,7 +588,6 @@ namespace DeliverooSource
 
             customerCount++;
 
-            Console.WriteLine("Count: " + customerCount);
         }
 
         public int GetId()
