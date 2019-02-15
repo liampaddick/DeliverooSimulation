@@ -178,7 +178,7 @@ namespace DeliverooSource
         }
         static Rider FindClosestRider(List<Rider> availableRiders, float restaurantX, float restaurantY, float customerX, float customerY)
         {
-            Rider shortestRider = new Rider { };
+            Rider shortestRider = new Rider("temp", 0.0f, 0.0f); // these values will be overwritten on the first run of the for loop
             List<Rider> tempRiderList = availableRiders;
             float tempDistanceToRestaurant = 0.0f;
             float tempDistanceToCustomer = 0.0f;
@@ -268,30 +268,19 @@ namespace DeliverooSource
             Order tempOrder = new Order(restaurantID, customerID);
             return tempOrder;
         }
-        static Restaurant CreateRestaurant(int id, string restaurantName, string restaurantAddress, float xCo, float yCo, bool open)
+        static Restaurant CreateRestaurant(string restaurantName, string restaurantAddress, float xCo, float yCo)
         {
-            Restaurant tempRestaurant = new Restaurant();
+            Restaurant tempRestaurant = new Restaurant(restaurantName, restaurantAddress, xCo, yCo);
             return tempRestaurant;
         }
-        static Rider CreateRider(int id, string riderName, float xCo, float yCo, bool online, bool isDelivering)
+        static Rider CreateRider(string riderName, float xCo, float yCo)
         {
-            Rider tempRider = new Rider { };
-            tempRider.SetId(id);
-            tempRider.SetName(riderName);
-            tempRider.SetXCo(xCo);
-            tempRider.SetYCo(yCo);
-            tempRider.SetOnline(online);
-            tempRider.SetCurrentlyDelivering(isDelivering);
+            Rider tempRider = new Rider(riderName, xCo, yCo);
             return tempRider;
         }
-        static Customer CreateCustomer(int id, string name, string address, float xCo, float yCo)
+        static Customer CreateCustomer(string name, string address, float xCo, float yCo)
         {
-            Customer tempCustomer = new Customer { };
-            tempCustomer.SetId(id);
-            tempCustomer.SetName(name);
-            tempCustomer.SetAddress(address);
-            tempCustomer.SetXCo(xCo);
-            tempCustomer.SetYCo(yCo);
+            Customer tempCustomer = new Customer(name, address, xCo, yCo);
             return tempCustomer;
         } 
     }
@@ -408,57 +397,39 @@ namespace DeliverooSource
         //this will be incremented every time a Restaurant object is made the constructor will add to this number and the ID of the restaurant object will be set accordingly. 
         public static int restaurantCount;
 
-        public Restaurant()
+        public Restaurant(string restaurantName, string restaurantAddress, float xCo, float yCo)
         {
             //constructor for the restaurant
             Console.WriteLine("constructing a restaurant");
-            
+            localRestaurantID = restaurantCount;
+            localRestaurantName = restaurantName;
+            localRestaurantAddress = restaurantAddress;
+            localXCo = xCo;
+            localYCo = yCo;            
             restaurantCount++;
 
             Console.WriteLine("Count: " + restaurantCount);
         }
-
         public int GetID()
         {
             return localRestaurantID;
-        }
-
-        public void SetRestaurantName(string RestaurantName)
-        {
-            localRestaurantName = RestaurantName;
         }
         public string GetRestaurantName()
         {
             return localRestaurantName;
         }
-
-        public void SetRestaurantAddress(string RestaurantAddress)
-        {
-            localRestaurantAddress = RestaurantAddress;
-        }
         public string GetRestaurantAddress()
         {
             return localRestaurantAddress;
-        }
-
-        public void SetXCo(float xCo)
-        {
-            localXCo = xCo;
         }
         public float GetXCo()
         {
             return localXCo;
         }
-
-        public void SetYCo(float yCo)
-        {
-            localYCo = yCo;
-        }
         public float GetYCo()
         {
             return localYCo;
         }
-
         public void SetOpen(bool open)
         {
             localOpen = open;
@@ -482,28 +453,24 @@ namespace DeliverooSource
         //this will be incremented every time a rider object is made the constructor will add to this number and the ID of the Rider object will be set accordingly. 
         public static int riderCount;
 
-        public Rider()
+        public Rider(string riderName, float xCo, float yCo)
         {
             //constructor for the rider
             Console.WriteLine("constructing a rider");
+            localId = riderCount;
+            localRiderName = riderName;
+            localXCo = xCo;
+            localYCo = yCo;
             riderCount++;
 
             Console.WriteLine("Count: " + riderCount);
         }
 
-        public void SetId(int id)
-        {
-            localId = id;
-        }
         public int GetId()
         {
             return localId;
         }
 
-        public void SetName(string riderName)
-        {
-            localRiderName = riderName;
-        }
         public string GetName()
         {
             return localRiderName;
@@ -566,55 +533,41 @@ namespace DeliverooSource
         //this will be incremented every time a customer object is made the constructor will add to this number and the ID of the Customer object will be set accordingly. 
         public static int customerCount;
 
-        public Customer()
+        public Customer(string customerName, string customerAddress, float xCo, float yCo)
         {
             //constructor for the Customer
             Console.WriteLine("constructing a customer");
+            localId = customerCount;
+            localName = customerName;
+            localAddress = customerAddress;
+            localXCo = xCo;
+            localYCo = yCo;
+
             customerCount++;
 
             Console.WriteLine("Count: " + customerCount);
         }
 
-        public void SetId(int id)
-        {
-            localId = id;
-        }
         public int GetId()
         {
             return localId;
         }
 
-        public void SetName(string name)
-        {
-            localName = name;
-        }
         public string GetName()
         {
             return localName;
         }
 
-        public void SetAddress(string address)
-        {
-            localAddress = address;
-        }
         public string GetAddress()
         {
             return localAddress;
         }
 
-        public void SetXCo(float xCo)
-        {
-            localXCo = xCo;
-        }
         public float GetXCo()
         {
             return localXCo;
         }
 
-        public void SetYCo(float yCo)
-        {
-            localYCo = yCo;
-        }
         public float GetYCo()
         {
             return localYCo;
