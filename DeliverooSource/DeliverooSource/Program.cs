@@ -22,20 +22,8 @@ namespace DeliverooSource
             List<Order> orderList = new List<Order>();
             //list of riders
             List<Rider> riderList = new List<Rider>();
-
-            Restaurant tempRestaurant = new Restaurant { };
-            Customer tempCustomer = new Customer { };
-            Order tempOrder = new Order { };
-            Rider tempRider = new Rider { };
-
-            Restaurant tempRestaurant1 = new Restaurant { };
-            Customer tempCustomer1 = new Customer { };
-            Order tempOrder1 = new Order { };
-            Rider tempRider1 = new Rider { };
-
-            restaurantList.Add(tempRestaurant);
         }
-        //These functions are used to test the initilisation of the various classes. They have been filled with placeholders for now
+        //These functions are used to test the initilisation of the various classes. this code is no longer functional and needs to be removed
         /*static List<Restaurant> TestRestaurant()
         {
             List<Restaurant> restaurantList = new List<Restaurant> { };
@@ -275,27 +263,14 @@ namespace DeliverooSource
             return tempRider;
         }
 
-        static Order CreateOrder(int id, int restaurantID, int customerID, bool initBools)
+        static Order CreateOrder(int restaurantID, int customerID)
         {
-            Order tempOrder = new Order { };
-            tempOrder.SetOrderID(id);
-            tempOrder.SetRestaurantID(restaurantID);
-            tempOrder.SetCustomerID(customerID);
-            tempOrder.SetRestaurantAccepted(initBools);
-            tempOrder.SetRiderAssigned(initBools);
-            tempOrder.SetFoodCollected(initBools);
-            tempOrder.SetFoodDelivered(initBools);
+            Order tempOrder = new Order(restaurantID, customerID);
             return tempOrder;
         }
         static Restaurant CreateRestaurant(int id, string restaurantName, string restaurantAddress, float xCo, float yCo, bool open)
         {
-            Restaurant tempRestaurant = new Restaurant { };
-            tempRestaurant.SetID(id);
-            tempRestaurant.SetRestaurantName(restaurantName);
-            tempRestaurant.SetRestaurantAddress(restaurantAddress);
-            tempRestaurant.SetXCo(xCo);
-            tempRestaurant.SetYCo(yCo);
-            tempRestaurant.SetOpen(open);
+            Restaurant tempRestaurant = new Restaurant();
             return tempRestaurant;
         }
         static Rider CreateRider(int id, string riderName, float xCo, float yCo, bool online, bool isDelivering)
@@ -335,19 +310,24 @@ namespace DeliverooSource
         //this will be incremented every time an Order object is made the constructor will add to this number and the ID of the Order object will be set accordingly. 
         public static int orderCount;
 
-        public Order()
+        public Order(int restaurantID, int customerID)
         {
             //constructor to initialise the order
             Console.WriteLine("constructing an order");
+            localOrderID = orderCount;
+            localRestaurantID = restaurantID;
+            localCustomerID = customerID;
+
+            localRestaurantAccepted = false;
+            localRiderAssigned = false;
+            localFoodCollected = false;
+            localFoodDelivered = false;
+
             orderCount++;
 
             Console.WriteLine("Count: " + orderCount);
         }
 
-        public void SetOrderID(int amountOfOrders)
-        {
-            localOrderID = amountOfOrders + 1;
-        }
         public int GetOrderID()
         {
             return localOrderID;
@@ -418,7 +398,7 @@ namespace DeliverooSource
     }
     class Restaurant
     {
-        int localId;
+        int localRestaurantID;
         string localRestaurantName;
         string localRestaurantAddress;
         float localXCo;
@@ -432,18 +412,15 @@ namespace DeliverooSource
         {
             //constructor for the restaurant
             Console.WriteLine("constructing a restaurant");
+            
             restaurantCount++;
 
             Console.WriteLine("Count: " + restaurantCount);
         }
 
-        public void SetID(int id)
-        {
-            localId = id;
-        }
         public int GetID()
         {
-            return localId;
+            return localRestaurantID;
         }
 
         public void SetRestaurantName(string RestaurantName)
