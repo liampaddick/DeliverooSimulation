@@ -24,7 +24,6 @@ namespace DeliverooSource
             List<Rider> riderList = new List<Rider>();
 
             //TESTING 
-            ////////
             restaurantList.Add(CreateRestaurant("Restaurant 1", "RE5 T1", 2, 2));
             restaurantList.Add(CreateRestaurant("Restaurant 2", "RE5 T2", 2, 5));
             Console.WriteLine("RESTAURANTS: ");
@@ -61,7 +60,7 @@ namespace DeliverooSource
 
 
             riderList.Add(CreateRider("Rider 1", 6, 2));
-            riderList.Add(CreateRider("Rider 1", 6, 5));
+            riderList.Add(CreateRider("Rider 2", 6, 5));
             Console.WriteLine("RIDERS: ");
             for (int i = 0; i < riderList.Count; i++)
             {
@@ -69,6 +68,8 @@ namespace DeliverooSource
                 Console.WriteLine("Rider Name: " + riderList[i].GetName());
                 Console.WriteLine("Rider xCo: " + riderList[i].GetXCo());
                 Console.WriteLine("Rider yCo: " + riderList[i].GetYCo());
+                riderList[i].SetOnline(true);
+                Console.WriteLine("Rider Online: " + riderList[i].GetOnline());
                 Console.WriteLine(" ");
             }
 
@@ -86,9 +87,35 @@ namespace DeliverooSource
                 Console.WriteLine(" ");
             }
 
-            Console.ReadLine();
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
 
-            ////////
+            //assigns rider to order
+            for (int i = 0; i < orderList.Count(); i++)
+            {
+                if (orderList[i].GetRiderAssigned() == false)
+                {
+                    Restaurant tempRestaurant = restaurantList[orderList[i].GetRestaurantID()];
+                    Customer tempCustomer = customerList[orderList[i].GetCustomerID()];
+
+                    Rider tempRider = FindClosestRider(GetAvailableRiders(riderList), tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
+                    tempRider.SetAssignedOrder(orderList[i].GetOrderID());
+                    tempRider.SetCurrentlyDelivering(true);
+                    orderList[i].SetRiderAssigned(true);
+                    orderList[i].SetRiderID(tempRider.GetId());
+                    Console.WriteLine("");
+                }
+            }
+
+            for (int i = 0; i < orderList.Count(); i++)
+            {
+                Console.WriteLine("Order ID: " + orderList[i].GetOrderID());
+                Console.WriteLine("Assigned Rider ID" + orderList[i].GetRiderID());
+            }
+
+            Console.ReadLine();
         }
         //These functions are used to test the initilisation of the various classes. this code is no longer functional and needs to be removed
         /*static List<Restaurant> TestRestaurant()
@@ -218,7 +245,7 @@ namespace DeliverooSource
 
         static List<Rider> GetAvailableRiders(List<Rider> riderList)
         {
-            List<Rider> tempRiderList = new List<Rider> { };
+            List<Rider> tempRiderList = riderList;
             List<Rider> availableRiderList = new List<Rider> { };
             for (int i = 0; i < tempRiderList.Count(); i++)
             {
@@ -370,6 +397,8 @@ namespace DeliverooSource
             localOrderID = orderCount;
             localRestaurantID = restaurantID;
             localCustomerID = customerID;
+
+            localRiderID = -1;
 
             orderCount++;
         }
