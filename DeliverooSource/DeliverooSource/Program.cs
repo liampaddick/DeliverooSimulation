@@ -101,29 +101,10 @@ namespace DeliverooSource
                 }
             }
 
-            //assigns rider to order
-            for (int i = 0; i < orderList.Count(); i++)
-            {
-                if (orderList[i].GetRestaurantAccepted() == true)
-                {
-                    if (orderList[i].GetRiderAssigned() == false)
-                    {
-                        Restaurant tempRestaurant = restaurantList[orderList[i].GetRestaurantID()];
-                        Customer tempCustomer = customerList[orderList[i].GetCustomerID()];
-
-                        Rider tempRider = FindClosestRider(GetAvailableRiders(riderList), tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
-                        tempRider.SetAssignedOrder(orderList[i].GetOrderID());
-                        tempRider.SetCurrentlyDelivering(true);
-                        orderList[i].SetRiderAssigned(true);
-                        orderList[i].SetRiderID(tempRider.GetId());
-                        Console.WriteLine("");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Order hasn't been accepted yet");
-                }
-            }
+            //assigns rider to order, move to function before merging with master to neaten main
+            var test = AssignRider(riderList, orderList, customerList, restaurantList);
+            orderList = test.Item1; //updatedOrderList
+            riderList = test.Item2; //updatedRiderList
 
             for (int i = 0; i < orderList.Count(); i++)
             {
@@ -133,122 +114,6 @@ namespace DeliverooSource
 
             Console.ReadLine();
         }
-        //These functions are used to test the initilisation of the various classes. this code is no longer functional and needs to be removed
-        /*static List<Restaurant> TestRestaurant()
-        {
-            List<Restaurant> restaurantList = new List<Restaurant> { };
-            for (int i = 0; i < 5; i++)
-            {
-                Restaurant tempRestaurant = new Restaurant { };
-                string tempRestaurantName = "Restaurant " + i;
-                float tempX = 3.14f * i;
-                float tempY = 6.734f * i;
-                tempRestaurant.InitRestaurant(i, tempRestaurantName, tempX, tempY, true);
-                restaurantList.Add(tempRestaurant);
-            }
-            return restaurantList;
-        }
-        static void OutputRestaurantList(List<Restaurant> RestaurantList)
-        {
-            Console.WriteLine("------------Output Restaurant Details------------");
-
-            for (int i = 0; i < RestaurantList.Count(); i++)
-            {
-                Console.WriteLine("Restaurant id: " + RestaurantList[i].GetID());
-                Console.WriteLine("Restaurant name: " + RestaurantList[i].GetRestaurantName());
-                Console.WriteLine("Restaurant Xco: " + RestaurantList[i].GetXCo());
-                Console.WriteLine("Restaurant Yco: " + RestaurantList[i].GetYCo());
-                Console.WriteLine("Restaurant Open: " + RestaurantList[i].GetOpen());
-                Console.WriteLine(" ");
-            }
-        }
-        static List<Customer> TestCustomer()
-        {
-            List<Customer> customerList = new List<Customer> { };
-            for (int i = 0; i < 5; i++)
-            {
-                Customer tempCustomer = new Customer { };
-                string tempCustomerFirstName = "FirstName " + i;
-                string tempCustomerLastName = "LastName " + i;
-                float tempXCo = 7.14f * i;
-                float tempYCo = 82.6f * i;
-
-                tempCustomer.InitCustomer(i, tempCustomerFirstName, tempCustomerLastName, tempXCo, tempYCo);
-                customerList.Add(tempCustomer);
-            }
-            return customerList;
-        }
-        static void OutputCustomerList(List<Customer> customerList)
-        {
-            Console.WriteLine("------------Output Customer Details------------");
-            for (int i = 0; i < customerList.Count(); i++)
-            {
-                Console.WriteLine("Customer ID: " + customerList[i].GetId());
-                Console.WriteLine("Customer FirstName: " + customerList[i].GetFirstName());
-                Console.WriteLine("Customer LastName: " + customerList[i].GetLastName());
-                Console.WriteLine("Customer xCo: " + customerList[i].GetXCo());
-                Console.WriteLine("Customer yCo: " + customerList[i].GetYCo());
-                Console.WriteLine(" ");
-            }
-        }
-        static List<Order> TestOrder()
-        {
-            List<Order> orderList = new List<Order> { };
-
-            for (int i = 0; i < 5; i++)
-            {
-                Order tempOrder = new Order { };
-                tempOrder.InitOrder(i, 0, i, false, false, false, false);
-                orderList.Add(tempOrder);
-            }
-            return orderList;
-        }
-        static void OutputOrderList(List<Order> orderList)
-        {
-            Console.WriteLine("------------Output Order Details------------");
-
-            for (int i = 0; i < orderList.Count(); i++)
-            {
-                Console.WriteLine("Order number: " + orderList[i].GetOrderID());
-                Console.WriteLine("Rider ID: " + orderList[i].GetRiderID());
-                Console.WriteLine("Restaurant ID: " + orderList[i].GetRestaurantID());
-                Console.WriteLine("Customer ID: " + orderList[i].GetCustomerID());
-                Console.WriteLine("Restaurant accepted: " + orderList[i].GetRestaurantAccepted());
-                Console.WriteLine("Rider assigned: " + orderList[i].GetRiderAssigned());
-                Console.WriteLine("Food collected: " + orderList[i].GetFoodCollected());
-                Console.WriteLine("food delivered: " + orderList[i].GetFoodDelivered());
-                Console.WriteLine(" ");
-            }
-        }
-        static List<Rider> TestRider()
-        {
-            List<Rider> riderList = new List<Rider> { };
-
-            for (int i = 0; i < 5; i++)
-            {
-                Rider tempRider = new Rider { };
-                string tempName = "Rider" + i;
-                float tempXCo = 89.14f * i;
-                float tempYCo = 27.16f * i;
-                tempRider.InitRider(i, tempName, tempXCo, tempYCo, true);
-                riderList.Add(tempRider);
-            }
-
-            return riderList;
-        }
-        static void OutputRiderList(List<Rider> riderList)
-        {
-            Console.WriteLine("------------Output Rider Details------------");
-            for (int i = 0; i < riderList.Count; i++)
-            {
-                Console.WriteLine("Rider ID: " + riderList[i].GetId());
-                Console.WriteLine("Rider Name: " + riderList[i].GetName());
-                Console.WriteLine("XCo: " + riderList[i].GetXCo());
-                Console.WriteLine("YCo: " + riderList[i].GetYCo());
-                Console.WriteLine("Rider is Active: " + riderList[i].GetOnline());
-                Console.WriteLine(" ");
-            }
-        }*/
 
         static bool InitServer() // placeholder for now, finished form will draw from text file
         {
@@ -257,6 +122,41 @@ namespace DeliverooSource
         static bool ServerShutdown() //Copy all data to text file so that it can be loaded once the server has been restarted
         {
             return false;
+        }
+
+        //temporary function for assigning rider (moving code from main)
+        static Tuple<List<Order>, List<Rider>> AssignRider (List<Rider>riders, List<Order>orders, List<Customer>customers, List<Restaurant>restaurants)
+        {
+            List<Order> orderListToReturn = orders;
+            List<Rider> riderListToReturn = riders;
+
+            for (int i = 0; i < orderListToReturn.Count(); i++)
+            {
+                if (orderListToReturn[i].GetRestaurantAccepted() == true)
+                {
+                    if (orderListToReturn[i].GetRiderAssigned() == false)
+                    {
+                        Restaurant tempRestaurant = restaurants[orderListToReturn[i].GetRestaurantID()];
+                        Customer tempCustomer = customers[orderListToReturn[i].GetCustomerID()];
+                        Rider tempRider = FindClosestRider(GetAvailableRiders(riderListToReturn), tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
+
+                        orderListToReturn[i].SetRiderAssigned(true);
+                        orderListToReturn[i].SetRiderID(tempRider.GetId());
+
+                        for (int j = 0; j < riderListToReturn.Count(); j++)
+                        {
+                            if(riderListToReturn[j].GetId() == tempRider.GetId())
+                            {
+                                riderListToReturn[j].SetAssignedOrder(orderListToReturn[i].GetOrderID());
+                                riderListToReturn[j].SetCurrentlyDelivering(true);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            var ListTuple = Tuple.Create(orderListToReturn, riderListToReturn);
+            return ListTuple;
         }
 
         static List<Rider> GetAvailableRiders(List<Rider> riderList)
