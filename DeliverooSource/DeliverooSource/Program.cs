@@ -92,20 +92,36 @@ namespace DeliverooSource
             Console.WriteLine(" ");
             Console.WriteLine(" ");
 
+            //this is for testing, the actual simulation will wait a random amount of time before accepting an order
+            for (int i = 0; i < orderList.Count(); i++)
+            {
+                if (orderList[i].GetRestaurantAccepted() == false)
+                {
+                    orderList[i].SetRestaurantAccepted(true);
+                }
+            }
+
             //assigns rider to order
             for (int i = 0; i < orderList.Count(); i++)
             {
-                if (orderList[i].GetRiderAssigned() == false)
+                if (orderList[i].GetRestaurantAccepted() == true)
                 {
-                    Restaurant tempRestaurant = restaurantList[orderList[i].GetRestaurantID()];
-                    Customer tempCustomer = customerList[orderList[i].GetCustomerID()];
+                    if (orderList[i].GetRiderAssigned() == false)
+                    {
+                        Restaurant tempRestaurant = restaurantList[orderList[i].GetRestaurantID()];
+                        Customer tempCustomer = customerList[orderList[i].GetCustomerID()];
 
-                    Rider tempRider = FindClosestRider(GetAvailableRiders(riderList), tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
-                    tempRider.SetAssignedOrder(orderList[i].GetOrderID());
-                    tempRider.SetCurrentlyDelivering(true);
-                    orderList[i].SetRiderAssigned(true);
-                    orderList[i].SetRiderID(tempRider.GetId());
-                    Console.WriteLine("");
+                        Rider tempRider = FindClosestRider(GetAvailableRiders(riderList), tempRestaurant.GetXCo(), tempRestaurant.GetYCo(), tempCustomer.GetXCo(), tempCustomer.GetYCo());
+                        tempRider.SetAssignedOrder(orderList[i].GetOrderID());
+                        tempRider.SetCurrentlyDelivering(true);
+                        orderList[i].SetRiderAssigned(true);
+                        orderList[i].SetRiderID(tempRider.GetId());
+                        Console.WriteLine("");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Order hasn't been accepted yet");
                 }
             }
 
