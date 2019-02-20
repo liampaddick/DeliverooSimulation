@@ -101,7 +101,7 @@ namespace DeliverooSource
                 }
             }
 
-            //assigns rider to order, move to function before merging with master to neaten main
+            //assigns rider to order
             var test = AssignRider(riderList, orderList, customerList, restaurantList);
             orderList = test.Item1; //updatedOrderList
             riderList = test.Item2; //updatedRiderList
@@ -124,7 +124,7 @@ namespace DeliverooSource
             return false;
         }
 
-        //temporary function for assigning rider (moving code from main)
+        //function for assigning rider
         static Tuple<List<Order>, List<Rider>> AssignRider (List<Rider>riders, List<Order>orders, List<Customer>customers, List<Restaurant>restaurants)
         {
             List<Order> orderListToReturn = orders;
